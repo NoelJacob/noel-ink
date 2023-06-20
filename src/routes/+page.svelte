@@ -33,7 +33,7 @@
             })
                 .then(x => x.json());
             console.log(res);
-            x = res;
+            x = JSON.stringify(res);
         }
 
         sendLog();
