@@ -19,12 +19,13 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
     const body = await request.json()
     switch (body.type) {
         case "device":
-            let ip = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
-                // referrer: 'https://ipwhois.io/',
-                headers: {
-                    origin: 'https://ipwhois.io/'
-                }
-            }).then(res => res.json());
+            let ip
+            //     = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
+            //     // referrer: 'https://ipwhois.io/',
+            //     headers: {
+            //         origin: 'https://ipwhois.io/'
+            //     }
+            // }).then(res => res.json());
 
             const info = {
                 client: body.data,
