@@ -21,9 +21,9 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
         case "device":
             let err;
             let ip = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
-                referrer: 'https://ipwhois.io/',
                 headers: {
-                    origin: 'https://ipwhois.io/'
+                    Referer: 'https://ipwhois.io/',
+                    Origin: 'https://ipwhois.io/'
                 }
             }).then(res => {err=res.text()});
 
