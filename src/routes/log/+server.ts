@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
                 client: body.data, ip
             }
             await db.insert(schema.debug).values({data: info}).execute().catch(e => error(501, JSON.stringify(e)));
-            return json(info);
+            return json({status: "added to db"});
 
         case "click":
         // return click(data.info);
