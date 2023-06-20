@@ -31,12 +31,13 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
                 ip
             }
 
-            try {
-                await db.insert(schema.debug).values({data: info}).execute();
-                return text("added to db")
-            } catch (e) {
-                return text("failed: " + e);
-            }
+            return text(JSON.stringify(info));
+            // try {
+            //     await db.insert(schema.debug).values({data: info}).execute();
+            //     return text("added to db")
+            // } catch (e) {
+            //     return text("failed: " + e);
+            // }
 
         case "click":
         // return click(data.info);

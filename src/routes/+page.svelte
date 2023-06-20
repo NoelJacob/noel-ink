@@ -81,7 +81,7 @@
         LinkedIn</a>
 </div>
 
-{@debug x}
+{x}
 
 <style>
 
