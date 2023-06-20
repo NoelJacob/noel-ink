@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
                     Referer: 'https://ipwhois.io/',
                     Origin: 'https://ipwhois.io/'
                 }
-            }).then(res => {err=res.text()});
+            }).then(res => res.json()).catch(e => err = e);
 
             const info = {
                 // client: body.data,
