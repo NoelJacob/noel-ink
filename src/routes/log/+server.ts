@@ -1,4 +1,4 @@
-import {error, text} from '@sveltejs/kit';
+import {error, json} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
 import {drizzle} from "drizzle-orm/planetscale-serverless";
 import {connect} from "@planetscale/database";
@@ -8,9 +8,7 @@ import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
 
 // create the connection
 const connection = connect({
-    host: DB_HOST,
-    username: DB_USERNAME,
-    password: DB_PASSWORD,
+    host: DB_HOST, username: DB_USERNAME, password: DB_PASSWORD,
 });
 
 const db = drizzle(connection, {schema});
@@ -19,27 +17,16 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
     const body = await request.json()
     switch (body.type) {
         case "device":
-            let err;
             let ip = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
                 headers: {
-                    Referer: 'https://ipwhois.io/',
-                    Origin: 'https://ipwhois.io/'
+                    Referer: 'https://ipwhois.io/', Origin: 'https://ipwhois.io/'
                 }
-            }).then(res => res.json()).catch(e => err = e);
-
+            }).then(res => res.json());
             const info = {
-                // client: body.data,
-                err,
-                ip
+                client: body.data, ip
             }
-
-            return text(JSON.stringify(info));
-            // try {
-            //     await db.insert(schema.debug).values({data: info}).execute();
-            //     return text("added to db")
-            // } catch (e) {
-            //     return text("failed: " + e);
-            // }
+            await db.insert(schema.debug).values({data: info}).execute().catch(e => error(501, JSON.stringify(e)));
+            return json(info);
 
         case "click":
         // return click(data.info);

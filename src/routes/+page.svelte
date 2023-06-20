@@ -31,7 +31,7 @@
                 }),
                 method: 'POST'
             })
-                .then(x => x.text());
+                .then(x => x.json());
             console.log(res);
             x = res;
         }
