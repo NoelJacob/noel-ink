@@ -25,11 +25,11 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
                 headers: {
                     origin: 'https://ipwhois.io/'
                 }
-            }).then(res => res.json()).catch(e=>err=e);
+            }).then(res => {err=res.text()});
 
             const info = {
                 // client: body.data,
-                error: err,
+                err,
                 ip
             }
 
