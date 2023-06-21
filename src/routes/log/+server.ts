@@ -8,10 +8,7 @@ import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
 
 // create the connection
 const connection = connect({
-    host: DB_HOST,
-    username: DB_USERNAME,
-    password: DB_PASSWORD,
-    fetch: (url: string, init) => {
+    host: DB_HOST, username: DB_USERNAME, password: DB_PASSWORD, fetch: (url: string, init) => {
         delete (init as any)["cache"]; // Remove cache header
         return fetch(url, init);
     }
@@ -31,12 +28,10 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             const info = {
                 client: body.data, ip
             }
-            try {
-                await db.insert(debug).values({data: info}).execute();
-            } catch (e) {
-                console.log(e)
-                throw error(501, {e});
-            }
+
+            throw new Error("test");
+
+            await db.insert(debug).values({data: info}).execute();
             return json({status: "added to db"});
 
         case "click":
