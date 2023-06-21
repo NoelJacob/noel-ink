@@ -8,7 +8,13 @@ import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
 
 // create the connection
 const connection = connect({
-    host: DB_HOST, username: DB_USERNAME, password: DB_PASSWORD,
+    host: DB_HOST,
+    username: DB_USERNAME,
+    password: DB_PASSWORD,
+    fetch: (url: string, init) => {
+        delete (init as any)["cache"]; // Remove cache header
+        return fetch(url, init);
+    }
 });
 
 const db = drizzle(connection, {schema: {debug}});
