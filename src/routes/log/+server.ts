@@ -25,6 +25,8 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             const info = {
                 client: body.data, ip
             }
+            throw error(501, 'error test');
+
             await db.insert(debug).values({data: info}).execute().catch(e => {
                 throw error(501, JSON.stringify(e))
             });
