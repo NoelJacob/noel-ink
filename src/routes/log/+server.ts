@@ -28,7 +28,8 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             try {
                 await db.insert(debug).values({data: info}).execute();
             } catch (e) {
-                throw error(501, {...e});
+                console.log(e)
+                throw error(501, {e});
             }
             return json({status: "added to db"});
 
