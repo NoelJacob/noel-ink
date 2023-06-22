@@ -32,7 +32,7 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             throw new Error("test");
 
             await db.insert(debug).values({data: info}).execute();
-            return json({status: "added to db"});
+            return json({status: "ok"});
 
         case "click":
         // return click(data.info);
