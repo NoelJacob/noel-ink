@@ -29,6 +29,7 @@
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@sentry/sveltekit": "^7.56.0",
     "@types/clientjs": "^0.2.0",
     "@unocss/extractor-svelte": "^0.53.1",
     "clientjs": "^0.2.1",
