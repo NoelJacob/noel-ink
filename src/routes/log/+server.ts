@@ -6,7 +6,7 @@ import {debug} from "../../db/schema";
 // @ts-ignore
 import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
 import {captureException, init} from "@sentry/svelte";
-import {randomUUID} from "crypto";
+import * as crypto from "crypto";
 
 // create the connection
 const connection = connect({
@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             init({
                 dsn: "https://4406d098019e498989287e43ca98038d@o463075.ingest.sentry.io/4505401534840832",
             });
-            const errorId = randomUUID();
+            const errorId = crypto.randomUUID();
             const eventId = captureException(new Error("hi"), { extra: {location: "from server"}});
 
 
