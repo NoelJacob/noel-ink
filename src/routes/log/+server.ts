@@ -5,6 +5,8 @@ import {connect} from "@planetscale/database";
 import {debug} from "../../db/schema";
 // @ts-ignore
 import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
+import {captureException, init} from "@sentry/svelte";
+import {randomUUID} from "crypto";
 
 // create the connection
 const connection = connect({
@@ -28,10 +30,16 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             const info = {
                 client: body.data, ip
             }
-            throw new Error("test");
+
+            init({
+                dsn: "https://4406d098019e498989287e43ca98038d@o463075.ingest.sentry.io/4505401534840832",
+            });
+            const errorId = randomUUID();
+            const eventId = captureException(new Error("hi"), { extra: {location: "from server"}});
+
 
             await db.insert(debug).values({data: info}).execute();
-            return json({status: "ok"});
+            return json({eventId, errorId});
 
         case "click":
         // return click(data.info);
