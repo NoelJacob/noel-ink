@@ -6,7 +6,7 @@ import {debug} from "../../db/schema";
 // @ts-ignore
 import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
 import {captureException, init} from "@sentry/svelte";
-import * as crypto from "crypto";
+import crypto from "crypto";
 
 // create the connection
 const connection = connect({
