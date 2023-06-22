@@ -1,5 +1,5 @@
 import type {HandleServerError} from '@sveltejs/kit';
-import {init, handleErrorWithSentry, } from "@sentry/sveltekit";
+import {init } from "@sentry/sveltekit";
 
 init({
     dsn: "https://4406d098019e498989287e43ca98038d@o463075.ingest.sentry.io/4505401534840832",
@@ -11,4 +11,4 @@ init({
 
 // export const handle = sentryHandle();
 
-export const handleError = handleErrorWithSentry();
+// export const handleError = handleErrorWithSentry();
