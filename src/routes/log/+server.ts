@@ -28,7 +28,6 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             const info = {
                 client: body.data, ip
             }
-            throw new Error("bad boy");
 
             await db.insert(debug).values({data: info}).execute();
             return json("ok");
