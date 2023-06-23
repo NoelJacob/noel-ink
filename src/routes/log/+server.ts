@@ -1,4 +1,4 @@
-import {error,} from '@sveltejs/kit';
+import {error, json} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
 import {drizzle} from "drizzle-orm/planetscale-serverless";
 import {connect} from "@planetscale/database";
@@ -30,7 +30,7 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
             }
 
             await db.insert(debug).values({data: info}).execute();
-            return new Response(null, {status: 200});
+            return json("ok");
 
         case "click":
         // return click(data.info);
