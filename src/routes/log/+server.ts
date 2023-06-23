@@ -1,11 +1,10 @@
-import {error, json} from '@sveltejs/kit';
+import {error,} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
 import {drizzle} from "drizzle-orm/planetscale-serverless";
 import {connect} from "@planetscale/database";
 import {debug} from "../../db/schema";
 // @ts-ignore
 import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
-import {Toucan} from "toucan-js";
 
 // create the connection
 const connection = connect({
@@ -30,14 +29,8 @@ export const POST: RequestHandler = async ({request, getClientAddress}) => {
                 client: body.data, ip
             }
 
-const Sentry = new Toucan({
-                dsn: "https://4406d098019e498989287e43ca98038d@o463075.ingest.sentry.io/4505401534840832",
-            });
-            const eventId = Sentry.captureException(new Error("hi"),{captureContext: {extra: info}});
-
-
             await db.insert(debug).values({data: info}).execute();
-            return json({eventId});
+            return new Response(null, {status: 200});
 
         case "click":
         // return click(data.info);
