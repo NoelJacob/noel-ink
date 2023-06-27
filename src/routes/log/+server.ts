@@ -1,42 +1,25 @@
-import {error, json} from '@sveltejs/kit';
+import {text} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
-import {drizzle} from "drizzle-orm/planetscale-serverless";
-import {connect} from "@planetscale/database";
-import {debug} from "../../db/schema";
-// @ts-ignore
-import {DB_HOST, DB_PASSWORD, DB_USERNAME} from '$env/static/private';
+import * as schema from "$lib/db/schema";
 
-// create the connection
-const connection = connect({
-    host: DB_HOST, username: DB_USERNAME, password: DB_PASSWORD, fetch: (url: string, init) => {
-        delete (init as any)["cache"]; // Remove cache header
-        return fetch(url, init);
+export const POST: RequestHandler = async ({request, getClientAddress, locals}) => {
+    interface ExtractClientDataRequest {
+        type: string,
+        body: schema.NewClient,
     }
-});
 
-const db = drizzle(connection, {schema: {debug}});
-
-export const POST: RequestHandler = async ({request, getClientAddress}) => {
-    const body = await request.json()
-    switch (body.type) {
-        case "device":
-            let ip = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
-                headers: {
-                    Referer: 'https://ipwhois.io/', Origin: 'https://ipwhois.io/'
-                }
-            }).then(res => res.json());
-            const info = {
-                client: body.data, ip
-            }
-
-            await db.insert(debug).values({data: info}).execute();
-            return json("ok");
-
-        case "click":
-        // return click(data.info);
-
-        default:
-            throw error(501, `WDYM by ${body.type} ?`)
+    const {type, body}: ExtractClientDataRequest = await request.json()
+    // let ip = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
+    //     headers: {
+    //         Referer: 'https://ipwhois.io/', Origin: 'https://ipwhois.io/'
+    //     }
+    // }).then(res => res.json());
+    // const info = {
+    //     client: body, ip
+    // }
+    if (type === "client") {
+        await locals.db.insert(schema.client).values(body).execute();
+        return text("db: added client");
     }
 }
 

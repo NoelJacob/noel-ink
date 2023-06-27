@@ -1,12 +1,16 @@
 <script lang="ts">
-    import {browser} from "$app/environment";
-    import FingerprintJS from '@fingerprintjs/fingerprintjs'
+    import {onMount} from "svelte";
+    import {load} from '@fingerprintjs/fingerprintjs';
     import {ClientJS} from 'clientjs/dist/client.base.min.js';
+    import {extractClientData} from "$lib/extract";
 
     let x = "all good!";
-    if (browser) {
+
+    export let data;
+
+    onMount(() => {
         const sendLog = async () => {
-            const fp = await FingerprintJS.load({monitoring: false}).then(fp => fp.get());
+            const fp = await load({delayFallback: 10, monitoring: false}).then(fp => fp.get());
             const client = new ClientJS();
             const cj = {
                 fingerprint: client.getFingerprint(),
@@ -25,19 +29,17 @@
                 canvas: client.isCanvas()
             }
             delete fp.confidence.comment;
+            const body = extractClientData({load_id: data.load_id, cookie_id: data.cookie_id, fp, cj});
             const res = await fetch('/log', {
-                body: JSON.stringify({
-                    type: "device", data: {fp, cj}
-                }),
-                method: 'POST'
-            })
-                .then(x => x.json());
+                body: JSON.stringify({type: "client", body}),
+                method: 'POST',
+                keepalive: true,
+            }).then(x => x.text());
             console.log(res);
-            x = JSON.stringify(res);
         }
 
         sendLog();
-    }
+    })
 
 
 </script>
@@ -80,8 +82,6 @@
         </svg>
         LinkedIn</a>
 </div>
-
-{x}
 
 <style>
 
