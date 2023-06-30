@@ -104,7 +104,7 @@ export const extractClientData = ({cookie_id, load_id, cj, fp}: ExtractClientDat
     return {
         load_id,
         cookie_id,
-        cookies: cj.cookies_enabled,
+        cookies: cj.cookie,
         mobile: cj.mobile,
         os_name: cj.browser?.os?.name,
         os_version: cj.browser?.os?.version,
@@ -133,7 +133,7 @@ export const extractClientData = ({cookie_id, load_id, cj, fp}: ExtractClientDat
         session_storage: fp.components?.sessionStorage?.value,
         device_tz: fp.components?.timezone?.value,
         touch_points: fp.components?.touchSupport?.value?.maxTouchPoints,
-        vendor: fp.components?.vendor?.value + ", " + cj.browser?.device?.vendor ?? '',
+        vendor: fp.components?.vendor?.value + ", " + (cj.browser?.device?.vendor ?? ''),
         video_card: fp.components?.videoCard?.value?.renderer,
         video_card_vendor: fp.components?.videoCard?.value?.vendor,
         fp_visitor_id: fp.visitorId,
