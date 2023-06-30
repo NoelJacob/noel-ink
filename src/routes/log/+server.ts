@@ -1,6 +1,7 @@
 import {text} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
 import * as schema from "$lib/db/schema";
+import * as assert from "assert";
 
 export const POST: RequestHandler = async ({request, getClientAddress, locals}) => {
     interface ExtractClientDataRequest {
@@ -20,6 +21,10 @@ export const POST: RequestHandler = async ({request, getClientAddress, locals}) 
     if (type === "client") {
         await locals.db.insert(schema.client).values(body).execute();
         return text("db: added client");
+    }
+    else if (type === "page") {
+        await locals.db.insert(schema.page).values(body).execute();
+        return text("db: added page");
     }
 }
 

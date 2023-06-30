@@ -1,4 +1,4 @@
-import {boolean, int, json, mysqlTable, serial, text, varchar, timestamp} from 'drizzle-orm/mysql-core';
+import {boolean, datetime, int, json, mysqlTable, serial, text, varchar, timestamp} from 'drizzle-orm/mysql-core';
 import type {InferModel} from 'drizzle-orm';
 
 export const debug = mysqlTable('debug', {
@@ -10,7 +10,7 @@ export type Debug = InferModel<typeof debug>;
 export type NewDebug = InferModel<typeof debug, 'insert'>;
 
 export const ip = mysqlTable('ip', {
-    db_id: serial("db_id", ).primaryKey(), /*here*/
+    db_id: serial("db_id").primaryKey(), /*here*/
     timestamp: timestamp("timestamp", {mode: 'date' }).defaultNow(), /*here*/
     cookie_id: varchar("cookie_id", {length: 36}), /*cookie.UUID*/
     load_id: varchar("load_id", {length: 36}), /*page.server.UUID*/
@@ -41,7 +41,7 @@ export type Ip = InferModel<typeof ip>;
 export type NewIp = InferModel<typeof ip, 'insert'>;
 
 export const client = mysqlTable('client', {
-    db_id: serial("db_id", ).primaryKey(), /*here*/
+    db_id: serial("db_id").primaryKey(), /*here*/
     timestamp: timestamp("timestamp", {mode: 'date' }).defaultNow(), /*here*/
     cookie_id: varchar("cookie_id", {length: 36}), /*cookie.UUID*/
     load_id: varchar("load_id", {length: 36}), /*page.server.UUID*/
@@ -79,7 +79,20 @@ export const client = mysqlTable('client', {
     video_card_vendor: text("video_card_vendor"), /*client.fp.components.videoCard.value.vendor*/
     fp_visitor_id: text("fp_visitor_id"), /*client.fp.visitorId*/
     fingerprint: text("fingerprint"), /*client.cj.fingerprint*/
+    time: text("time"), /*client.time*/
 });
 
 export type Client = InferModel<typeof client>;
 export type NewClient = InferModel<typeof client, 'insert'>;
+
+export const page = mysqlTable('page', {
+    db_id: serial("db_id").primaryKey(), /*here*/
+    timestamp: timestamp("timestamp", {mode: 'date' }).defaultNow(), /*here*/
+    cookie_id: varchar("cookie_id", {length: 36}), /*cookie.UUID*/
+    load_id: varchar("load_id", {length: 36}), /*page.server.UUID*/
+    link: text("link"), /*page.link*/
+    time: text("time"), /*page.time*/
+});
+
+export type Page = InferModel<typeof page>;
+export type NewPage = InferModel<typeof page, 'insert'>;

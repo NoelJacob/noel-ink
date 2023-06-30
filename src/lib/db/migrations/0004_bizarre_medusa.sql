@@ -1,0 +1,1 @@
+ALTER TABLE `client` ADD `time` datetime;

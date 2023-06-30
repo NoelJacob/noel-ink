@@ -96,14 +96,16 @@ export const extractIpData = ({cookie_id, load_id, ip}: ExtractIpData): NewIp =>
 interface ExtractClientData {
     cookie_id: string,
     load_id: string,
+    time: string,
     cj: any,
     fp: any
 }
 
-export const extractClientData = ({cookie_id, load_id, cj, fp}: ExtractClientData): NewClient => {
+export const extractClientData = ({cookie_id, load_id, cj, fp, time}: ExtractClientData): NewClient => {
     return {
         load_id,
         cookie_id,
+        time,
         cookies: cj.cookie,
         mobile: cj.mobile,
         os_name: cj.browser?.os?.name,
