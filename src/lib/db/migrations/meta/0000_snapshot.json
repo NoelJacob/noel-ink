@@ -1,0 +1,36 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "8f563f1c-e933-4684-873c-962dad1358b3",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "debug": {
+      "name": "debug",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "data": {
+          "name": "data",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {}
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

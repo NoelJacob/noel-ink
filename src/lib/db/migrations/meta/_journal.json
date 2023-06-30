@@ -1,0 +1,55 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1687280315898,
+      "tag": "0000_flaky_wind_dancer",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1687715499632,
+      "tag": "0001_marvelous_trauma",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1687865392892,
+      "tag": "0002_slow_the_phantom",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1687870877855,
+      "tag": "0003_lively_sersi",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1688125644711,
+      "tag": "0004_bizarre_medusa",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1688125786657,
+      "tag": "0005_noisy_marauders",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1688128346944,
+      "tag": "0006_curly_mephistopheles",
+      "breakpoints": true
+    }
+  ]
+}
