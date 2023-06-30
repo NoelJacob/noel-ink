@@ -1,7 +1,6 @@
 import {text} from '@sveltejs/kit';
 import type {RequestHandler} from './$types';
 import * as schema from "$lib/db/schema";
-import * as assert from "assert";
 
 export const POST: RequestHandler = async ({request, getClientAddress, locals}) => {
     interface ExtractClientDataRequest {
