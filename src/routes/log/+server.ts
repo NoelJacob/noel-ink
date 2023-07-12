@@ -8,15 +8,7 @@ export const POST: RequestHandler = async ({request, getClientAddress, locals}) 
         body: schema.NewClient,
     }
 
-    const {type, body}: ExtractClientDataRequest = await request.json()
-    // let ip = await fetch(`https://ipwhois.app/widget.php?ip=${getClientAddress()}&lang=en`, {
-    //     headers: {
-    //         Referer: 'https://ipwhois.io/', Origin: 'https://ipwhois.io/'
-    //     }
-    // }).then(res => res.json());
-    // const info = {
-    //     client: body, ip
-    // }
+    const {type, body}: ExtractClientDataRequest = await request.json();
     if (type === "client") {
         await locals.db.insert(schema.client).values(body).execute();
         return text("db: added client");
@@ -24,6 +16,9 @@ export const POST: RequestHandler = async ({request, getClientAddress, locals}) 
     else if (type === "page") {
         await locals.db.insert(schema.page).values(body).execute();
         return text("db: added page");
+    }
+    else {
+        throw new Error(`Unknown type ${type}`);
     }
 }
 

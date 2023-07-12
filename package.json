@@ -33,6 +33,7 @@
     "@types/clientjs": "^0.2.0",
     "@unocss/extractor-svelte": "^0.53.1",
     "clientjs": "^0.2.1",
+    "dotenv": "^16.3.1",
     "drizzle-orm": "^0.27.0",
     "normalize.css": "^8.0.1",
     "rollup": "^3.7.5",
