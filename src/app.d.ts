@@ -10,5 +10,9 @@ declare namespace App {
   }
   // interface PageData {}
   // interface Error {}
-  // interface Platform {}
+  interface Platform {
+    context: {
+        waitUntil: (promise: Promise<any>) => void
+    }
+  }
 }
